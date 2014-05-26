@@ -5,5 +5,29 @@
 
 // But instead we're going to implement it from scratch:
 var getElementsByClassName = function(className){
-  // your code here
+  
+  var getElements = function(node) {
+    
+    var nodeClass = node.classList;
+    if (nodeClass !== undefined) {
+      for (var i = 0; i < nodeClass.length; i++) {
+        if (nodeClass[i] === className) {
+          results.push(node);
+        }
+      }
+    }
+    
+    var nodes = node.childNodes;
+    if (nodes !== undefined && 0 < nodes.length) {
+      for (var i = 0; i < nodes.length; i++) {
+        getElements(nodes[i]);
+      }
+    }
+  };
+
+  var results = [];
+  $(document).ready(function() {
+    getElements(document.body);
+  });
+  return results;
 };
